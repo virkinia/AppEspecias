@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">AppFotos</string>
+    <string name="title_foto">Foto</string>
+    <string name="title_mapa">Mapa</string>
+    <string name="title_lista">Lista</string>
+    <string name="title_camera">Hacer Foto</string>
+    <string name="title_gallery">Guardar</string>
+    <string name="title_especia">Especia</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
