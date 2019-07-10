@@ -11,10 +11,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.MenuItem;
-import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements EspeciasModelFragment.OnListFragmentInteractionListener {
 
 
 
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
                     setFragment(new FotoFragment());
                     return true;
                 case R.id.navigation_lista:
-
+                    setFragment(new EspeciasModelFragment());
                     return true;
             }
             return false;
@@ -59,4 +59,14 @@ public class MainActivity extends AppCompatActivity {
         FT.commit();
     }
 
+    @Override
+    public void onListFragmentInteraction(EspeciaModel item) {
+            Log.e("ONLISTFRAGMENT", "1");
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+        Log.e("Pointer", "1");
+
+    }
 }

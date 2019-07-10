@@ -33,10 +33,14 @@ public class ApplicationPreferences {
 
         ArrayList<EspeciaModel> especiasList = readEspeciaList();
         if(especiasList == null) {
-            especiasList = new ArrayList<EspeciaModel>();
+            ArrayList<EspeciaModel> nuevaLista = new ArrayList<EspeciaModel>();
+            nuevaLista.add(especia);
+            saveEspeciaList(nuevaLista);
+        } else {
+            especiasList.add(especia);
+            saveEspeciaList(especiasList);
         }
-        especiasList.add(especia);
-        saveEspeciaList(especiasList);
+
     }
 
     public static void saveEspeciaList(ArrayList<EspeciaModel> especiasList) {
