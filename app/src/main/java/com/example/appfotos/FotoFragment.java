@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -18,8 +19,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 
 /**
@@ -29,6 +33,8 @@ public class FotoFragment extends Fragment {
 
     private ImageView imageView;
     private Button photoButton;
+    private Button saveButton;
+    private EditText nameText;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
     private static final int CAMERA_REQUEST = 1888;
 
@@ -63,6 +69,23 @@ public class FotoFragment extends Fragment {
                 }
             }
         });
+        nameText = v.findViewById(R.id.editText);
+        saveButton = v.findViewById(R.id.btn_save);
+        saveButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Bitmap bitmap;
+                        bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+                        String name = nameText.getText().toString();
+                        EspeciaModel especia = new EspeciaModel(name, bitmap);
+                        especia.save();
+                    }
+                }
+        );
+
+        loadEspecia();
+
         return v;
     }
 
@@ -91,6 +114,15 @@ public class FotoFragment extends Fragment {
             Bitmap photo = (Bitmap) data.getExtras().get("data");  // CREO UN BITMAP A PARTIR DE LOS DATOS RECOGIDOS POR LA CÁMARA
             imageView.setImageBitmap(photo);
         }
+    }
+
+    public void loadEspecia() {
+        ArrayList<EspeciaModel> lista = ApplicationPreferences.readEspeciaList();
+        if(lista.size() > 0) {
+
+        }
+        imageView.setImageBitmap(lista.get(0).getImageBase64());
+        nameText.setText(lista.get(0).getName());
     }
 
 }
