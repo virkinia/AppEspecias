@@ -41,15 +41,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_map, container, false);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) v.getFragmentManager(R.id.map_view);
-        mapFragment.getMapAsync(this);
+        //SupportMapFragment mapFragment = (SupportMapFragment) v.getFragmentManager(R.id.map_view);
+        //mapFragment.getMapAsync(this);
 
 
         return v;
 
 
     }
-
 
 
 
@@ -82,9 +81,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 .position(madrid)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
-        mMap.addMarker(new MarkerOptions()
+       /* mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(madrid.latitude, madrid.longitude + 0.0003))
-                .icon(bitmapDescriptorFromVector(getApplicationContext(),R.drawable.ic_healing_black_24dp)));
+                .icon(bitmapDescriptorFromVector(getApplicationContext(),R.drawable.ic_healing_black_24dp)));*/
 
 
         //Zoom
@@ -106,4 +105,3 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
     }
 
-}
