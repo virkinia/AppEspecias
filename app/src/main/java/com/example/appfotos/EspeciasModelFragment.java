@@ -68,6 +68,8 @@ public class EspeciasModelFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
+
+            //Aquí pasamos los datos a la lista
             recyclerView.setAdapter(new MyEspeciasModelRecyclerViewAdapter(ApplicationPreferences.readEspeciaList(), mListener));
         }
         return view;
