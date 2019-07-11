@@ -81,7 +81,7 @@ public class MapFragment extends Fragment {
                         mMap.addMarker(new MarkerOptions()
                                 .position(new LatLng(especia.getLatitud(),especia.getLongitud()))
                                 .title(especia.getName())
-                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                                .icon(BitmapDescriptorFactory.fromBitmap(especia.getImageBase64())));
                     }
 
                     CameraPosition googlePlex = CameraPosition.builder()
