@@ -1,4 +1,4 @@
-package com.example.appfotos;
+package com.example.appfotos.model;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -6,23 +6,30 @@ import android.location.Location;
 import android.util.Base64;
 import android.util.Log;
 
+import com.example.appfotos.ApplicationPreferences;
+
 import java.io.ByteArrayOutputStream;
 
 public class EspeciaModel {
 
     String name;
     String image;
-    Location location;
+    Double latitud;
+
+
+
+    Double longitud;
 
     public EspeciaModel(String name, Bitmap image) {
         this.name = name;
         this.image = encodeTobase64(image);
     }
 
-    public EspeciaModel(String name, String image, Location location) {
+    public EspeciaModel(String name, Bitmap image, Location location) {
         this.name = name;
-        this.image = image;
-        this.location = location;
+        this.image = encodeTobase64(image);
+        this.latitud = location.getLatitude();
+        this.longitud = location.getLongitude();
     }
 
     public String getName() {
@@ -31,6 +38,22 @@ public class EspeciaModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(Double latitud) {
+        this.latitud = latitud;
+    }
+
+    public Double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(Double longitud) {
+        this.longitud = longitud;
     }
 
     public String getImage() {
@@ -48,19 +71,21 @@ public class EspeciaModel {
     }
 
     public Location getLocation() {
-        return location;
+        Location loc = new Location("dummyprovider");
+
+        loc.setLatitude(this.latitud);
+        loc.setLongitude(this.longitud);
+
+        return loc;
     }
 
     public void setLocation(Location location) {
-        this.location = location;
+        this.latitud = location.getLatitude();
+        this.longitud = location.getLongitude();
+
     }
 
-    public Double getLocationLat() {
-        return location.getLatitude();
-    }
-    public Double getLocationLong() {
-        return location.getLongitude();
-    }
+
 
     public void save() {
         ApplicationPreferences.saveEspecia(this);

@@ -1,4 +1,4 @@
-package com.example.appfotos;
+package com.example.appfotos.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,6 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.appfotos.ApplicationPreferences;
+import com.example.appfotos.R;
+import com.example.appfotos.adapters.MyEspeciasModelRecyclerViewAdapter;
+import com.example.appfotos.model.EspeciaModel;
 
 
 /**

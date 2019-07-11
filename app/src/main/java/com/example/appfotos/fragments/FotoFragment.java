@@ -1,4 +1,4 @@
-package com.example.appfotos;
+package com.example.appfotos.fragments;
 
 
 import android.Manifest;
@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -22,6 +23,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.appfotos.ApplicationPreferences;
+import com.example.appfotos.MainActivity;
+import com.example.appfotos.R;
+import com.example.appfotos.model.EspeciaModel;
 
 import java.util.ArrayList;
 
@@ -78,7 +84,8 @@ public class FotoFragment extends Fragment {
                         Bitmap bitmap;
                         bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
                         String name = nameText.getText().toString();
-                        EspeciaModel especia = new EspeciaModel(name, bitmap);
+                        Location localizacion = ((MainActivity) getActivity()).localizacion;
+                        EspeciaModel especia = new EspeciaModel(name, bitmap, localizacion);
                         especia.save();
                     }
                 }
@@ -88,7 +95,6 @@ public class FotoFragment extends Fragment {
 
         return v;
     }
-
 
 
     @Override
@@ -118,11 +124,11 @@ public class FotoFragment extends Fragment {
 
     public void loadEspecia() {
         ArrayList<EspeciaModel> lista = ApplicationPreferences.readEspeciaList();
-        if(lista.size() > 0) {
-
+        if(lista != null) {
+            imageView.setImageBitmap(lista.get(0).getImageBase64());
+            nameText.setText(lista.get(0).getName());
         }
-        imageView.setImageBitmap(lista.get(0).getImageBase64());
-        nameText.setText(lista.get(0).getName());
+
     }
 
 }

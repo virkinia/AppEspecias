@@ -1,4 +1,4 @@
-package com.example.appfotos;
+package com.example.appfotos.adapters;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -8,8 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.appfotos.EspeciasModelFragment.OnListFragmentInteractionListener;
-import com.example.appfotos.EspeciaModel;
+import com.example.appfotos.fragments.EspeciasModelFragment.OnListFragmentInteractionListener;
+import com.example.appfotos.model.EspeciaModel;
+import com.example.appfotos.R;
 
 import java.util.List;
 
@@ -38,7 +39,9 @@ public class MyEspeciasModelRecyclerViewAdapter extends RecyclerView.Adapter<MyE
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).name);
+        holder.mIdView.setText(mValues.get(position).getName());
+        holder.mIdLatitud.setText(mValues.get(position).getLatitud().toString());
+        holder.mIdLongitud.setText(mValues.get(position).getLongitud().toString());
         holder.mImageViewList.setImageBitmap(mValues.get(position).getImageBase64());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -55,12 +58,14 @@ public class MyEspeciasModelRecyclerViewAdapter extends RecyclerView.Adapter<MyE
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return mValues != null ? mValues.size(): 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;
+        public final TextView mIdLatitud;
+        public final TextView mIdLongitud;
         public final ImageView mImageViewList;
         public EspeciaModel mItem;
 
@@ -68,6 +73,8 @@ public class MyEspeciasModelRecyclerViewAdapter extends RecyclerView.Adapter<MyE
             super(view);
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.item_number);
+            mIdLatitud = (TextView) view.findViewById(R.id.txt_latitud);
+            mIdLongitud = (TextView) view.findViewById(R.id.txt_longitud);
             mImageViewList = (ImageView) view.findViewById(R.id.imageViewList);
         }
 

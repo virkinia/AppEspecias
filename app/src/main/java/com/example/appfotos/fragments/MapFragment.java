@@ -1,4 +1,4 @@
-package com.example.appfotos;
+package com.example.appfotos.fragments;
 
 
 import android.content.Context;
@@ -14,6 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.appfotos.ApplicationPreferences;
+import com.example.appfotos.R;
+import com.example.appfotos.model.EspeciaModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -23,6 +26,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.ArrayList;
+import java.util.function.Consumer;
 
 
 /**
@@ -57,23 +63,38 @@ public class MapFragment extends Fragment {
 
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
-            public void onMapReady(GoogleMap mMap) {
+            public void onMapReady(final GoogleMap mMap) {
                 mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
                 mMap.clear(); //clear old markers
 
-                CameraPosition googlePlex = CameraPosition.builder()
-                        .target(new LatLng(37.4219999,-122.0862462))
-                        .zoom(10)
-                        .bearing(0)
-                        .tilt(45)
-                        .build();
 
-                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex), 10000, null);
+
+
 
                 // Aquí cogemos nuestro array y creamos los puntos
 
-                mMap.addMarker(new MarkerOptions()
+                ArrayList<EspeciaModel> lista  = ApplicationPreferences.readEspeciaList();
+
+                if (lista != null) {
+                    for (EspeciaModel especia: lista) {
+                        mMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(especia.getLatitud(),especia.getLongitud()))
+                                .title(especia.getName())
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                    }
+
+                    CameraPosition googlePlex = CameraPosition.builder()
+                            .target(new LatLng(lista.get(0).getLatitud(),lista.get(0).getLongitud()))
+                            .zoom(10)
+                            .bearing(0)
+                            .tilt(45)
+                            .build();
+
+                    mMap.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex), 10000, null);
+                }
+
+             /*   mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(37.4219999, -122.0862462))
                         .title("Spider Man")
                         .icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_map_black_24dp)));
@@ -85,7 +106,7 @@ public class MapFragment extends Fragment {
 
                 mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(37.3092293,-122.1136845))
-                        .title("Captain America"));
+                        .title("Captain America"));*/
             }
         });
 
@@ -94,6 +115,8 @@ public class MapFragment extends Fragment {
 
 
     }
+
+
 
 
 
